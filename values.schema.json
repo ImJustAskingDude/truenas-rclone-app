@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "type": "object",
+    "properties": {
+      "remoteName": { "type": "string", "title": "Rclone Remote Name", "default": "cryptremote:" },
+      "configHostPath": { "type": "string", "title": "Config Host Path", "default": "/mnt/pool/dataset/rclone/config" },
+      "mountHostPath": { "type": "string", "title": "Mount Host Path", "default": "/mnt/pool/dataset/rclone/mount" },
+      "mountContainerPath": { "type": "string", "title": "Container Mount Path", "default": "/mnt/remote" },
+      "rcloneOptions": { "type": "array", "title": "Rclone Mount Options", "items": { "type": "string" }, "default": ["--allow-other","--vfs-cache-mode full","--daemon","--uid 1000","--gid 1000"] },
+      "securityContext": {
+        "type": "object",
+        "properties": {
+          "runAsUser": { "type": "integer", "title": "Run As User", "default": 0 },
+          "runAsGroup": { "type": "integer", "title": "Run As Group", "default": 0 },
+          "privileged": { "type": "boolean", "title": "Privileged Container", "default": true },
+          "capabilities": { "type": "object", "properties": { "add": { "type": "array", "items": { "type": "string" }, "default": ["SYS_ADMIN"] } } }
+        }
+      }
+    }
+  }

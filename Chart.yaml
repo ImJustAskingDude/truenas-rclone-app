@@ -1,0 +1,6 @@
+apiVersion: v2
+name: rclone-app
+description: A custom TrueNAS SCALE app for mounting an rclone crypt backend
+type: application
+version: 0.1.0
+appVersion: "latest"

@@ -1,0 +1,30 @@
+image:
+  repository: rclone/rclone
+  tag: latest
+
+# Name of your crypt remote (must end with ':')
+remoteName: cryptremote:
+
+# Paths on the TrueNAS host
+configHostPath: /mnt/pool/dataset/rclone/config    # directory containing rclone.conf
+mountHostPath: /mnt/pool/dataset/rclone/mount      # where decrypted files appear on host
+
+# Inside-container mount point (must match hostPath)
+mountContainerPath: /mnt/remote
+
+# Flags passed to 'rclone mount'
+rcloneOptions:
+  - --allow-other
+  - --vfs-cache-mode full
+  - --daemon
+  - --uid 1000         # map files to host UID 1000
+  - --gid 1000
+
+securityContext:
+  runAsUser: 0          # container process UID (0=root for FUSE mount)
+  runAsGroup: 0         # container process GID
+  privileged: true      # needed for FUSE
+  capabilities:
+    add:
+      - SYS_ADMIN       # FUSE capability
+resources: {}
